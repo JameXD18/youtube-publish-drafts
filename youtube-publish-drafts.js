@@ -10,7 +10,7 @@
     // ~ PUBLISH CONFIG
     // -----------------------------------------------------------------
     const MADE_FOR_KIDS = false; // true / false;
-    const VISIBILITY = 'Public'; // 'Public' / 'Private' / 'Unlisted'
+    const VISIBILITY = 'Unlisted'; // 'Public' / 'Private' / 'Unlisted'
     // -----------------------------------------------------------------
     // ~ SORT PLAYLIST CONFIG
     // -----------------------------------------------------------------
@@ -19,7 +19,7 @@
     };
     // END OF CONFIG (not safe to edit stuff below)
     // -----------------------------------------------------------------
-
+    
     // Art by Joan G. Stark
     // .'"'.        ___,,,___        .'``.
     // : (\  `."'"```         ```"'"-'  /) ;
@@ -36,8 +36,6 @@
     //            `\'  `._.'  '/'
     //              `. --'-- .'
     //                `-...-'
-
-
 
     // ----------------------------------
     // COMMON  STUFF
@@ -101,7 +99,9 @@
     const SAVE_BUTTON_SELECTOR = '#done-button';
     const SUCCESS_ELEMENT_SELECTOR = 'ytcp-video-thumbnail-with-info';
     const DIALOG_SELECTOR = 'ytcp-dialog.ytcp-video-share-dialog > tp-yt-paper-dialog:nth-child(1)';
-    const DIALOG_CLOSE_BUTTON_SELECTOR = 'tp-yt-iron-icon';
+    
+    // FIX: Targeting the button with aria-label="Close" inside the dialog
+    const DIALOG_CLOSE_BUTTON_SELECTOR = 'ytcp-button-shape button[aria-label="Close"]';
 
     class SuccessDialog {
         constructor(raw) {
@@ -109,10 +109,12 @@
         }
 
         async closeDialogButton() {
+            // Updated selector is used here via the constant
             return await waitForElement(DIALOG_CLOSE_BUTTON_SELECTOR, this.raw);
         }
 
         async close() {
+            // Wait for the button and click it to close the success/share window
             click(await this.closeDialogButton());
             await sleep(50);
             debugLog('closed');
@@ -144,6 +146,7 @@
             return await waitForElement(SAVE_BUTTON_SELECTOR, this.raw);
         }
         async isSaved() {
+            // Wait for the success dialog content to appear (which confirms saving)
             await waitForElement(SUCCESS_ELEMENT_SELECTOR, document);
         }
         async dialog() {
@@ -239,7 +242,7 @@
             const visibility = await draft.goToVisibility();
             await visibility.setVisibility();
             const dialog = await visibility.save();
-            await dialog.close();
+            await dialog.close(); // Success dialog is now closed using the new selector
             await sleep(100);
         }
     }
@@ -259,7 +262,7 @@
         }
 
         async anyMenuItem() {
-            const item =  await waitForElement(SORTING_ITEM_MENU_ITEM_SELECTOR, this.raw);
+            const item = await waitForElement(SORTING_ITEM_MENU_ITEM_SELECTOR, this.raw);
             if (item === null) {
                 throw new Error("could not locate any menu item");
             }
@@ -331,4 +334,3 @@
 
 
 })();
-
