@@ -21,26 +21,26 @@
     // -----------------------------------------------------------------
 
     // Art by Joan G. Stark
-    // .'"'.        ___,,,___        .'``.
-    // : (\  `."'"```         ```"'"-'  /) ;
-    //  :  \                         `./  .'
-    //   `.                            :.'
-    //     /        _         _        \
-    //    |         0}       {0         |
-    //    |         /         \         |
-    //    |        /           \        |
-    //    |       /             \       |
-    //     \     |      .-.      |     /
-    //      `.   | . . /   \ . . |   .'
-    //        `-._\.'.(     ).'./_.-'
-    //            `\'  `._.'  '/'
-    //              `. --'-- .'
-    //                `-...-'
+    // .'"'.        ___,,,___        .'``.
+    // : (\  `."'"```         ```"'"-'  /) ;
+    //  :  \                         `./  .'
+    //   `.                            :.'
+    //     /        _         _        \
+    //    |         0}       {0         |
+    //    |         /         \         |
+    //    |        /           \        |
+    //    |       /             \       |
+    //     \     |      .-.      |     /
+    //      `.   | . . /   \ . . |   .'
+    //        `-._\.'.(     ).'./_.-'
+    //            `\'  `._.'  '/'
+    //              `. --'-- .'
+    //                `-...-'
 
 
 
     // ----------------------------------
-    // COMMON  STUFF
+    // COMMON  STUFF
     // ---------------------------------
     const TIMEOUT_STEP_MS = 20;
     const DEFAULT_ELEMENT_TIMEOUT_MS = 10000;
@@ -101,7 +101,8 @@
     const SAVE_BUTTON_SELECTOR = '#done-button';
     const SUCCESS_ELEMENT_SELECTOR = 'ytcp-video-thumbnail-with-info';
     const DIALOG_SELECTOR = 'ytcp-dialog.ytcp-video-share-dialog > tp-yt-paper-dialog:nth-child(1)';
-    const DIALOG_CLOSE_BUTTON_SELECTOR = 'tp-yt-iron-icon';
+    // CHANGED THIS SELECTOR: using the specific ID from the HTML snippet you provided.
+    const DIALOG_CLOSE_BUTTON_SELECTOR = '#close-icon-button'; 
 
     class SuccessDialog {
         constructor(raw) {
@@ -109,6 +110,7 @@
         }
 
         async closeDialogButton() {
+            // using the updated selector
             return await waitForElement(DIALOG_CLOSE_BUTTON_SELECTOR, this.raw);
         }
 
@@ -240,7 +242,7 @@
             await visibility.setVisibility();
             const dialog = await visibility.save();
             await dialog.close();
-            await sleep(100);
+            await sleep(1000);
         }
     }
 
@@ -259,7 +261,7 @@
         }
 
         async anyMenuItem() {
-            const item =  await waitForElement(SORTING_ITEM_MENU_ITEM_SELECTOR, this.raw);
+            const item =  await waitForElement(SORTING_ITEM_MENU_ITEM_SELECTOR, this.raw);
             if (item === null) {
                 throw new Error("could not locate any menu item");
             }
@@ -331,4 +333,3 @@
 
 
 })();
-
