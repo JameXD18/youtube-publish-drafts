@@ -20,3 +20,8 @@ if you were to do that, (which I'm pretty sure is against YouTube's terms of use
 4. wait
 
 It should work as of 26.12.2020.
+
+## This fork:
+1. this will click on the close button that youtube added
+2. the script will continue after that
+3. default changed to unlisted
