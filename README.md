@@ -21,7 +21,7 @@ if you were to do that, (which I'm pretty sure is against YouTube's terms of use
 
 It should work as of 26.12.2020.
 
-## This fork:
-1. this will click on the close button that youtube added
+## This fork (working as of 20251123):
+1. this will click on the close button that youtube has but sometimes breaks the code
 2. the script will continue after that
 3. default changed to unlisted
